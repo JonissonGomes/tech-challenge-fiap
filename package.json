@@ -1,0 +1,17 @@
+{
+  "name": "tech-challenge",
+  "version": "1.0.0",
+  "description": "Post-Graduation Tech challenge for FIAP",
+  "main": "src/index.js",
+  "license": "ISC",
+  "scripts": {
+    "start": "ts-node src/app.ts"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.12",
+    "express": "^4.19.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
