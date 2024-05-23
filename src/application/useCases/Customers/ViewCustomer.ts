@@ -1,27 +1,16 @@
 import ICustomerRepository from './ICustomerRepository';
 import { CustomerDTO } from './CustomerDTO';
 
-interface FindCustomerParams {
-    id?: string;
-    email?: string;
-    cpf?: string;
-}
-
 class ViewCustomer {
     constructor(private customerRepository: ICustomerRepository) { }
 
-    async execute(params: FindCustomerParams): Promise<CustomerDTO | null> {
-        let customer: CustomerDTO | null = null;
-
-        if (params.id) {
-            customer = await this.customerRepository.getCustomer(params.id);
-        } else if (params.email) {
-            customer = await this.customerRepository.getCustomerByEmail(params.email);
-        } else if (params.cpf) {
-            customer = await this.customerRepository.getCustomerByCPF(params.cpf);
-        } else {
-            throw new Error('You must provide an id, email, or cpf to find a customer.');
+    private async findCustomer(field: string, value: string, errorMessage: string): Promise<CustomerDTO | null> {
+        if (!value) {
+            throw new Error('You must provide a valid value to search for customers');
         }
+
+        let customer: CustomerDTO | null = null;
+        customer = await this.customerRepository[`getCustomerBy${field.charAt(0).toUpperCase() + field.slice(1)}`](value);
 
         if (!customer) {
             throw new Error('Customer not found.');
