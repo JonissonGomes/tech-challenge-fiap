@@ -12,4 +12,5 @@ export interface ProductDTO {
     price: number;
     createdAt: Date;
     updatedAt: Date;
+    isDeleted: boolean;
 }
