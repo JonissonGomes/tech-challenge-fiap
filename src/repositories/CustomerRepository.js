@@ -21,6 +21,10 @@ class CustomerRepository {
     async delete(id) {
         return Customer.findByIdAndDelete(id);
     }
+
+    async findAll() {
+        return Customer.find();
+    }
 }
 
 module.exports = new CustomerRepository();

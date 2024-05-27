@@ -11,7 +11,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "src/repositories/ProductRepository.js", "src/repositories/CustomerRepository.js"  ],
   "exclude": [
     "node_modules"
   ]

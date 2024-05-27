@@ -6,7 +6,7 @@ import customerRoutes from './interfaces/controllers/customerRoutes';
 import productRoutes from './interfaces/controllers/productRoutes';
 import orderRoutes from './interfaces/controllers/orderRoutes';
 
-// const express = require('express');
+require('dotenv').config();
 const connectDB = require('./config/mongo');
 const customerController = require('./controllers/CustomerController');
 const productController = require('./controllers/ProductController');
@@ -31,6 +31,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 // Customer routes
 app.post('/api/customers', customerController.registerCustomer);
 app.get('/api/customers/:id', customerController.getCustomerById);
+app.get('/api/customers', customerController.getAllCustomers);
 app.get('/api/customers/cpf/:cpf', customerController.getCustomerByCpf);
 app.put('/api/customers/:id', customerController.updateCustomer);
 app.delete('/api/customers/:id', customerController.deleteCustomer);

@@ -19,6 +19,15 @@ const getCustomerById = async (req, res) => {
     }
 };
 
+const getAllCustomers = async (req, res) => {
+    try {
+        const customers = await CustomerRepository.findAll();
+        res.status(200).json(customers);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 const getCustomerByCpf = async (req, res) => {
     try {
         const customer = await CustomerRepository.findByCpf(req.params.cpf);
@@ -52,6 +61,7 @@ const deleteCustomer = async (req, res) => {
 module.exports = {
     registerCustomer,
     getCustomerById,
+    getAllCustomers,
     getCustomerByCpf,
     updateCustomer,
     deleteCustomer

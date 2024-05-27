@@ -9,7 +9,7 @@ services:
       - "3000:3000"
     environment:
       NODE_ENV: development
-      DB_URI: mongodb://mongo:27017/nomeDoBanco
+      DB_URI: mongodb://admin:admin@mongo:27017/techchallenge?authSource=admin
     volumes:
       - .:/app
       - /app/node_modules
@@ -19,13 +19,13 @@ services:
 
   mongo:
     container_name: mongo-db
-    image: mongo:latest
+    image: mongo:4.4
     ports:
       - "27017:27017"
     environment:
-      MONGO_INITDB_DATABASE: nomeDoBanco
-      MONGO_INITDB_ROOT_USERNAME: usuario
-      MONGO_INITDB_ROOT_PASSWORD: senha
+      MONGO_INITDB_DATABASE: techchallenge
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
     volumes:
       - mongo-data:/data/db
 
