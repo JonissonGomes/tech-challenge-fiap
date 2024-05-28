@@ -1,10 +1,11 @@
-import IOrderRepository from "./IOrderRepository";
-import { OrderDTO, OrderStatus } from "./OrderDTO";
+import { IOrder } from "../../../interfaces/IOrder";
+import IOrderRepository from "../../../repositories/interfaces/IOrderRepository";
+import { OrderDTO } from "./OrderDTO";
 
-export class EditOrder {
+export default class EditOrder {
     constructor(private orderRepository: IOrderRepository) { }
 
-    async execute(id: string, order: Omit<OrderDTO, 'id'>): Promise<OrderDTO | null> {
+    async execute(id: string, order: Omit<OrderDTO, 'updatedAt' | 'createdAt'>): Promise<IOrder | null> {
         if (!id) {
             throw new Error('Order id is required.');
         }
@@ -13,6 +14,6 @@ export class EditOrder {
             throw new Error('Order object is required.');
         }
 
-        return this.orderRepository.updateOrder(id, order);
+        return this.orderRepository.updateOrder(id, { ...order, updatedAt: new Date() });
     }
 }

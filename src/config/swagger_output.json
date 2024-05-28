@@ -19,6 +19,9 @@
   "paths": {
     "/": {
       "get": {
+        "tags": [
+          "General"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -27,114 +30,40 @@
         }
       }
     },
-    "/customer/": {
+    "/customers/": {
       "post": {
-        "description": "",
+        "tags": [
+          "Customers"
+        ],
+        "description": "Create a new customer",
+        "parameters": [
+          {
+            "name": "customerData",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        ],
         "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          },
           "400": {
             "description": "Bad Request"
           }
         }
       }
     },
-    "/customer/{id}": {
+    "/customers/{id}": {
       "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
+        "tags": [
+          "Customers"
         ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/customer/cpf/{cpf}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "cpf",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/customer/email/{email}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "email",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/product/": {
-      "post": {
-        "description": "",
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/product/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      },
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      },
-      "delete": {
         "description": "",
         "parameters": [
           {
@@ -154,37 +83,89 @@
         }
       }
     },
-    "/product/category/{category}": {
+    "/customers/cpf/{cpf}": {
       "get": {
+        "tags": [
+          "Customers"
+        ],
         "description": "",
         "parameters": [
           {
-            "name": "category",
+            "name": "cpf",
             "in": "path",
             "required": true,
             "type": "string"
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "400": {
             "description": "Bad Request"
           }
         }
       }
     },
-    "/order/": {
-      "post": {
-        "description": "",
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/order/{id}": {
+    "/customers/email/{email}": {
       "get": {
+        "tags": [
+          "Customers"
+        ],
         "description": "",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/product": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Create a new product",
+        "parameters": [
+          {
+            "name": "product",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/product/{id}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Get a product by ID",
         "parameters": [
           {
             "name": "id",
@@ -194,13 +175,55 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          },
           "400": {
             "description": "Bad Request"
           }
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "description": "Update a product by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "product",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Delete a product by ID",
         "parameters": [
           {
             "name": "id",
@@ -210,9 +233,247 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "400": {
             "description": "Bad Request"
           }
+        }
+      }
+    },
+    "/product/category/{category}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Get products by category",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "lanche",
+              "acompanhamento",
+              "bebida",
+              "sobremesa"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/order": {
+      "post": {
+      "tags": [
+        "Order"
+      ],
+      "description": "Create a new order",
+      "parameters": [
+        {
+          "name": "order",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Order"
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Created",
+          "schema": {
+            "$ref": "#/definitions/Order"
+          }
+        },
+        "400": {
+          "description": "Bad Request"
+        }
+      }
+    },
+    "get": {
+      "tags": [
+        "Order"
+      ],
+      "description": "Get all orders",
+      "responses": {
+        "200": {
+          "description": "OK",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        },
+        "400": {
+          "description": "Bad Request"
+        }
+      }
+    }
+    },
+    "/order/{id}": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Get an order by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Update an order by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "order",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Customer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "123"
+        },
+        "cpf": {
+          "type": "string",
+          "example": "123.456.789-00"
+        },
+        "email": {
+          "type": "string",
+          "example": "example@example.com"
+        }
+      }
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "customerId": {
+          "type": "string",
+          "example": "123"
+        },
+        "combo": {
+          "type": "object",
+          "properties": {
+            "LANCHE": {
+              "$ref": "#/definitions/Product"
+            },
+            "ACOMPANHAMENTO": {
+              "$ref": "#/definitions/Product"
+            },
+            "BEBIDA": {
+              "$ref": "#/definitions/Product"
+            },
+            "SOBREMESA": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "recebido",
+            "preparando",
+            "pronto",
+            "finalizado"
+          ],
+          "example": "recebido"
+        }
+      }
+    },
+    "Product": {
+    "type": "object",
+    "properties": {
+      "category": {
+        "type": "string",
+        "enum": [
+          "lanche",
+          "acompanhamento",
+          "bebida",
+          "sobremesa"
+        ],
+        "example": "lanche"
+      },
+      "name": {
+        "type": "string",
+        "example": "Product Name"
+      },
+      "price": {
+        "type": "number",
+        "example": 19.99
+      },
+      "description": {
+        "type": "string",
+        "example": "This is a product description"
         }
       }
     }
