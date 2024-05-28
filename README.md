@@ -85,12 +85,23 @@ Tech Challenge FIAP is a self-service system for a fast-food restaurant, designe
 - **Get Product by ID**
   - **GET** `/api/products/:id`
 
+- **Get Products by Category**
+  - **GET** `/api/products/category/:category`
+
 - **Update Product**
   - **PUT** `/api/products/:id`
   - Body: `{ "name": "Burger", "category": "Food", "description": "Updated burger", "price": 6.99, "imageUrl": "http://example.com/burger.jpg" }`
 
 - **Delete Product**
   - **DELETE** `/api/products/:id`
+
+### Orders
+- **List Orders**
+  - **GET** `/api/orders`
+
+- **Fake Checkout**
+  - **POST** `/api/orders/checkout`
+  - Body: `{ "items": [...], "total": 100.00 }`
 
 ## Contributing
 1. Fork the repository.
