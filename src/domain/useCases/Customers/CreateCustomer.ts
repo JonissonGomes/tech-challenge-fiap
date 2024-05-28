@@ -13,7 +13,7 @@ class CreateCustomer {
             updatedAt,
         };
 
-        return this.customerRepository.save(customer);
+        return this.customerRepository.createCustomer(customer);
     }
 }
 
