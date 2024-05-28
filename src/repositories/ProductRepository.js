@@ -5,6 +5,10 @@ class ProductRepository {
         return Product.findById(id);
     }
 
+    async findByCategory(category) {
+        return Product.find({ category });
+    }
+
     async findAll() {
         return Product.find();
     }

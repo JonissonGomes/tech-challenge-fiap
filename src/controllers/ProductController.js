@@ -19,6 +19,16 @@ const getProductById = async (req, res) => {
     }
 };
 
+const getProductsByCategory = async (req, res) => {
+    try {
+        const { category } = req.params;
+        const products = await ProductRepository.findByCategory(category);
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 const getAllProducts = async (req, res) => {
     try {
         const products = await ProductRepository.findAll();
@@ -51,6 +61,7 @@ const deleteProduct = async (req, res) => {
 module.exports = {
     addProduct,
     getProductById,
+    getProductsByCategory,
     getAllProducts,
     updateProduct,
     deleteProduct

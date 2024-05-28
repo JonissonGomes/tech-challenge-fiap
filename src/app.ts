@@ -10,6 +10,7 @@ require('dotenv').config();
 const connectDB = require('./config/mongo');
 const customerController = require('./controllers/CustomerController');
 const productController = require('./controllers/ProductController');
+const orderController = require('./controllers/OrderController');
 const app = express();
 const port = 3000;
 
@@ -40,8 +41,13 @@ app.delete('/api/customers/:id', customerController.deleteCustomer);
 app.post('/api/products', productController.addProduct);
 app.get('/api/products/:id', productController.getProductById);
 app.get('/api/products', productController.getAllProducts);
+app.get('/api/products/category/:category', productController.getProductsByCategory);
 app.put('/api/products/:id', productController.updateProduct);
 app.delete('/api/products/:id', productController.deleteProduct);
+
+// Order routes
+app.get('/api/orders', orderController.listOrders);
+app.post('/api/orders/checkout', orderController.fakeCheckout);
 
 app.listen(port, () => {
     console.log(`Tech Challenge running at http://localhost:${port} 🚀`);
