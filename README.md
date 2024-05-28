@@ -11,6 +11,7 @@
 - [API Endpoints](#api-endpoints)
   - [Customers](#customers)
   - [Products](#products)
+  - [Orders](#orders)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -21,6 +22,9 @@ Tech Challenge FIAP is a self-service system for a fast-food restaurant, designe
 - Create, read, update, and delete customers and products.
 - MongoDB integration for data storage.
 - Dockerized for easy deployment.
+- Endpoint to get products by category.
+- Endpoint to list orders.
+- Endpoint to perform a fake checkout.
 
 ## Technologies
 - **Node.js**: JavaScript runtime.
