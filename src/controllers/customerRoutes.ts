@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const customer = await viewCustomer.findCustomer('id', id, 'Customer not found with provided Id.');
+        const customer = await viewCustomer.findCustomerById(id);
         res.json(customer);
     } catch (error: any) {
         res.status(400).json({ message: error.message });
@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
 router.get('/cpf/:cpf', async (req, res) => {
     try {
         const cpf = req.params.cpf;
-        const customer = await viewCustomer.findCustomer('cpf', cpf, 'Customer not found with provided CPF.');
+        const customer = await viewCustomer.findCustomerByCPF(cpf);
         res.json(customer);
     } catch (error: any) {
         res.status(400).json({ message: error.message });
@@ -43,7 +43,7 @@ router.get('/cpf/:cpf', async (req, res) => {
 router.get('/email/:email', async (req, res) => {
     try {
         const email = req.params.email;
-        const customer = await viewCustomer.findCustomer('email', email, 'Customer not found with provided Email.');
+        const customer = await viewCustomer.findCustomerByEmail(email);
         res.json(customer);
     } catch (error: any) {
         res.status(400).json({ message: error.message });

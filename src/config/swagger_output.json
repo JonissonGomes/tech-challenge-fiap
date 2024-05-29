@@ -400,10 +400,6 @@
     "Customer": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string",
-          "example": "123"
-        },
         "cpf": {
           "type": "string",
           "example": "123.456.789-00"
@@ -411,6 +407,10 @@
         "email": {
           "type": "string",
           "example": "example@example.com"
+        },
+        "name": {
+          "type": "string",
+          "example": "John Doe"
         }
       }
     },
