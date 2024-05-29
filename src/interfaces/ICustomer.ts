@@ -3,5 +3,7 @@ export interface ICustomer {
     cpf: string;
     name: string;
     email: string;
+    createdAt: Date;
+    updatedAt: Date;
   }
   

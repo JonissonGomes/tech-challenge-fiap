@@ -7,8 +7,6 @@ export enum OrderStatus {
     FINALIZADO = 'finalizado',
 }
 
-// Cada combo pode ter um produto de cada category de produtos.
-// Temos uma redundancia na categoria. Visto que {lanche: {...product, category: lanche}}
 export interface Combo {
     [ECategory.LANCHE]?: ProductDTO;
     [ECategory.ACOMPANHAMENTO]?: ProductDTO;
@@ -17,7 +15,6 @@ export interface Combo {
 }
 
 export interface OrderDTO {
-    id: string;
     customerId?: string;
     combo: Combo;
     status: OrderStatus;

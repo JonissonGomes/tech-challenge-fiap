@@ -1,4 +1,4 @@
-import { CustomerDTO } from './CustomerDTO';
+import { CustomerDTO } from '../../domain/useCases/Customers/CustomerDTO';
 
 interface ICustomerRepository {
     [key: string]: any; // for dynamic access to properties
@@ -6,7 +6,7 @@ interface ICustomerRepository {
     getCustomerById(id: string): Promise<CustomerDTO | null>;
     getCustomerByEmail(email: string): Promise<CustomerDTO | null>;
     getCustomerByCPF(cpf: string): Promise<CustomerDTO | null>;
-    updateCustomer(id: string, customer: Omit<Partial<CustomerDTO>, 'id'>): Promise<CustomerDTO>;
+    updateCustomer(id: string, customer: Omit<Partial<CustomerDTO>, 'id'>): Promise<CustomerDTO | null>;
     deleteCustomer(id: string): Promise<void>;
 }
 

@@ -6,10 +6,10 @@ export enum ECategory {
 }
 
 export interface ProductDTO {
-    id: string;
     category: ECategory;
     name: string;
     price: number;
+    description?: string;
     createdAt: Date;
     updatedAt: Date;
     isDeleted: boolean;

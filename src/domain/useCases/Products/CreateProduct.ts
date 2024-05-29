@@ -1,14 +1,13 @@
-import IProductRepository from './IProductRepository';
+import IProductRepository from '../../../repositories/interfaces/IProductRepository';
 import { ProductDTO } from './ProductDTO';
 
 class CreateProduct {
     constructor(private productRepository: IProductRepository) { }
 
-    async execute(productData: Omit<ProductDTO, 'id' | 'createdAt' | 'updatedAt' | 'isDeleted'>): Promise<ProductDTO> {
+    async execute(productData: Omit<ProductDTO, 'createdAt' | 'updatedAt' | 'isDeleted'>): Promise<ProductDTO> {
         const createdAt = new Date();
         const updatedAt = createdAt;
         const customer: ProductDTO = {
-            id: '', // Lets us a UUID generator here
             ...productData,
             createdAt,
             updatedAt,
