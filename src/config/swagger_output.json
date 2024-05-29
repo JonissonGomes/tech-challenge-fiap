@@ -131,7 +131,7 @@
         }
       }
     },
-    "/product": {
+    "/products": {
       "post": {
         "tags": [
           "Product"
@@ -160,7 +160,7 @@
         }
       }
     },
-    "/product/{id}": {
+    "/products/{id}": {
       "get": {
         "tags": [
           "Product"
@@ -250,7 +250,7 @@
         }
       }
     },
-    "/product/category/{category}": {
+    "/products/category/{category}": {
       "get": {
         "tags": [
           "Product"
@@ -286,7 +286,7 @@
         }
       }
     },
-    "/order": {
+    "/orders": {
       "post": {
       "tags": [
         "Order"
@@ -335,7 +335,7 @@
       }
     }
     },
-    "/order/{id}": {
+    "/orders/{id}": {
       "get": {
         "tags": [
           "Order"
