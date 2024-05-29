@@ -15,9 +15,9 @@ class CreateOrder {
             throw new Error('Order must contain a combo.');
         }
 
-        if (!Object.values(orderData.combo).every(value => value.id)) {
+        if (!Object.values(orderData.combo).every(value => value)) {
             throw new Error('Combo cannot be empty');
-        }
+        }   
 
         const createdAt = new Date();
         const updatedAt = createdAt;
