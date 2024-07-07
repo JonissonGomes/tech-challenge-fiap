@@ -9,7 +9,7 @@ services:
       - "3000:3000"
     environment:
       NODE_ENV: development
-      DB_URI: mongodb://admin:admin@mongo:27017/techchallenge?authSource=admin
+      MONGO_URI: mongodb://admin:admin@mongo:27017/techchallenge?authSource=admin
     volumes:
       - .:/app
       - /app/node_modules
