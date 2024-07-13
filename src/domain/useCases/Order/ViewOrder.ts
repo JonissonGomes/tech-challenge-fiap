@@ -1,11 +1,10 @@
-import { IOrder } from '../../../interfaces/IOrder';
+import { Order } from '../../../entities/order';
 import IOrderRepository from '../../../repositories/interfaces/IOrderRepository';
-import { OrderDTO, OrderStatus } from './OrderDTO';
 
 export default class ViewOrder {
     constructor(private orderRepository: IOrderRepository) { }
 
-    async execute(id: string): Promise<IOrder | null> {
+    async execute(id: string): Promise<Order> {
         if (!id) {
             throw new Error('Order id is required.');
         }
@@ -16,11 +15,11 @@ export default class ViewOrder {
             throw new Error('Order not found.');
         }
 
-        return order;
+        return new Order(order);
     }
 
-    async executeAll(): Promise<IOrder[] | null> {
+    async executeAll(): Promise<Order[]> {
         const orders = await this.orderRepository.getAll();
-        return orders;
+        return orders?.map((order) => new Order(order)) || [];
     }
 }

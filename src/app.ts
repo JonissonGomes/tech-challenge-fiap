@@ -8,9 +8,9 @@ import { connectDB } from './config/mongo';
 import swaggerUi from "swagger-ui-express";
 import swaggerOutput from "./config/swagger_output.json"
 
-import customerRoutes from './controllers/customerRoutes';
-import productRoutes from './controllers/productRoutes';
-import orderRoutes from './controllers/orderRoutes';
+import customerRoutes from './api/customerRoutes';
+import productRoutes from './api/productRoutes';
+import orderRoutes from './api/orderRoutes';
 
 const app = express();
 const port = 3000;

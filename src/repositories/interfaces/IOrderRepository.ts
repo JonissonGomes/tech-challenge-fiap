@@ -1,11 +1,11 @@
 import { OrderDTO } from '../../domain/useCases/Order/OrderDTO';
-import { IOrder } from '../../interfaces/IOrder';
+import { Order } from '../../entities/order';
 
 interface IOrderRepository {
-    getAll(): Promise<IOrder[] | null>;
-    getOrderById(id: string): Promise<IOrder | null>;
-    createOrder(order: OrderDTO): Promise<IOrder>;
-    updateOrder(id: string, order: Partial<OrderDTO>): Promise<IOrder | null>;
+    getAll(): Promise<Order[] | null>;
+    getOrderById(id: string): Promise<Order | null>;
+    createOrder(order: OrderDTO): Promise<Order>;
+    updateOrder(id: string, order: Partial<OrderDTO>): Promise<Order | null>;
     deleteOrder(id: string): Promise<void>;
 }
 
