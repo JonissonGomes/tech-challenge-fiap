@@ -1,18 +1,23 @@
 import CreateOrder from '../../domain/useCases/Order/CreateOrder';
+import CreateOrderQRCode from '../../domain/useCases/Order/CreateOrderQRCode';
 import ViewOrder from '../../domain/useCases/Order/ViewOrder';
 import EditOrder from '../../domain/useCases/Order/EditOrder';
 import IOrderRepository from '../../repositories/interfaces/IOrderRepository';
 
-import { Combo, OrderStatus } from '../../entities/order';
+import { Combo, OrderStatus, PaymentStatus } from '../../entities/order';
+import { IMercadoPagoRepository } from '../../repositories/interfaces/IMercadoPagoRepository';
 
 export class OrderController {
     readonly createOrderUseCase: CreateOrder
+    readonly createOrderQRCodeUseCase: CreateOrderQRCode
     readonly viewOrderUseCases:ViewOrder
     readonly editOrderUseCase:EditOrder
-    constructor(orderRepository: IOrderRepository){
+
+    constructor(orderRepository: IOrderRepository, mercadoPagoRepository: IMercadoPagoRepository) {
         this.createOrderUseCase = new CreateOrder(orderRepository as IOrderRepository);
         this.viewOrderUseCases = new ViewOrder(orderRepository as IOrderRepository);
         this.editOrderUseCase = new EditOrder(orderRepository as IOrderRepository);
+        this.createOrderQRCodeUseCase = new CreateOrderQRCode(orderRepository as IOrderRepository, mercadoPagoRepository as IMercadoPagoRepository);
     }
     
     async createOrder({ customerId, combo }: {customerId: string, combo: Combo}) {
@@ -30,11 +35,33 @@ export class OrderController {
         return order;
     }
 
+    async viewActiveOrders() {
+        const orders = await this.viewOrderUseCases.executeActive();
+        return orders;
+    }
+
+    async viewOrderStatus({ id }: { id: string }) {
+        const orderStatus = await this.viewOrderUseCases.executeStatusById(id);
+        return orderStatus;
+    }
+
+    async viewOrderPaymentStatus({ id }: { id: string }) {
+        const orderPaymentStatus = await this.viewOrderUseCases.executePaymentStatusById(id);
+        return orderPaymentStatus;
+    }
+
     async editOrder({id, orderData}:{id: string, orderData: {
         combo: Combo;
         status: OrderStatus;
+        total: number;
+        paymentStatus: PaymentStatus;
     }  }){
         const order = await this.editOrderUseCase.execute(id, orderData);
+        return order;
+    }
+
+    async createOrderPaymentQRCode({ orderId }: { orderId: string }) {
+        const order = await this.createOrderQRCodeUseCase.execute({ orderId });
         return order;
     }
 

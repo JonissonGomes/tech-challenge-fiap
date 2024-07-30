@@ -14,7 +14,6 @@ export default class EditOrder {
             throw new Error('Order object is required.');
         }
 
-        return this.orderRepository.updateOrder(id, { ...order, updatedAt: new Date() });
-        
+        return this.orderRepository.updateOrder(id, { ...order, updatedAt: new Date() });   
     }
 }
