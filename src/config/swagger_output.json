@@ -287,18 +287,18 @@
       }
     },
     "/orders": {
-      "post": {
+    "post": {
       "tags": [
         "Order"
       ],
       "description": "Create a new order",
       "parameters": [
         {
-          "name": "order",
+          "name": "orderData",
           "in": "body",
           "required": true,
           "schema": {
-            "$ref": "#/definitions/Order"
+            "$ref": "#/definitions/OrderInput"
           }
         }
       ],
@@ -306,7 +306,15 @@
         "201": {
           "description": "Created",
           "schema": {
-            "$ref": "#/definitions/Order"
+            "type": "object",
+            "properties": {
+              "order_identifier": {
+                "type": "string"
+              },
+              "orderPaymentQRCode": {
+                "type": "string"
+              }
+            }
           }
         },
         "400": {
@@ -374,11 +382,11 @@
             "type": "string"
           },
           {
-            "name": "order",
+            "name": "orderData",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Order"
+              "$ref": "#/definitions/OrderInput"
             }
           }
         ],
@@ -387,6 +395,145 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/Order"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/orders/{id}/qrcode": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Get order payment QR code",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/orders/{id}/status": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Get order status",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "recebido",
+                    "preparando",
+                    "pronto",
+                    "finalizado"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Update order status",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "statusData",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "orderStatus": {
+                  "type": "string",
+                  "enum": [
+                    "recebido",
+                    "preparando",
+                    "pronto",
+                    "finalizado"
+                  ]
+                },
+                "paymentStatus": {
+                  "type": "string",
+                  "enum": [
+                    "pendente",
+                    "pago",
+                    "cancelado"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/orders/active": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Get all active orders",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Order"
+              }
             }
           },
           "400": {
@@ -447,33 +594,37 @@
             "finalizado"
           ],
           "example": "recebido"
+        },
+        "total": {
+          "type": "number",
+          "example": 29.99
         }
       }
     },
     "Product": {
-    "type": "object",
-    "properties": {
-      "category": {
-        "type": "string",
-        "enum": [
-          "lanche",
-          "acompanhamento",
-          "bebida",
-          "sobremesa"
-        ],
-        "example": "lanche"
-      },
-      "name": {
-        "type": "string",
-        "example": "Product Name"
-      },
-      "price": {
-        "type": "number",
-        "example": 19.99
-      },
-      "description": {
-        "type": "string",
-        "example": "This is a product description"
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string",
+          "enum": [
+            "lanche",
+            "acompanhamento",
+            "bebida",
+            "sobremesa"
+          ],
+          "example": "lanche"
+        },
+        "name": {
+          "type": "string",
+          "example": "Product Name"
+        },
+        "price": {
+          "type": "number",
+          "example": 19.99
+        },
+        "description": {
+          "type": "string",
+          "example": "This is a product description"
         }
       }
     }

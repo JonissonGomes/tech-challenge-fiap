@@ -1,4 +1,4 @@
-import { Order } from '../../../entities/order';
+import { Order, OrderStatus, PaymentStatus } from '../../../entities/order';
 import IOrderRepository from '../../../repositories/interfaces/IOrderRepository';
 
 export default class ViewOrder {
@@ -21,5 +21,20 @@ export default class ViewOrder {
     async executeAll(): Promise<Order[]> {
         const orders = await this.orderRepository.getAll();
         return orders?.map((order) => new Order(order)) || [];
+    }
+
+    async executeActive(): Promise<Order[]> {
+        const orders = await this.orderRepository.getAllActive();
+        return orders?.map((order) => new Order(order)) || [];
+    }
+
+    async executeStatusById(id: string): Promise<OrderStatus | null> {
+        const orderStatus = await this.orderRepository.getOrderStatusById(id);
+        return orderStatus;
+    }
+
+    async executePaymentStatusById(id: string): Promise<PaymentStatus | null> {
+        const orderPaymentStatus = await this.orderRepository.getOrderPaymentStatusById(id);
+        return orderPaymentStatus;
     }
 }

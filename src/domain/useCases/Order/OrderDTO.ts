@@ -1,23 +1,11 @@
-import { ECategory, ProductDTO } from "../Products/ProductDTO";
-
-export enum OrderStatus {
-    RECEBIDO = 'recebido',
-    PREPARANDO = 'preparando',
-    PRONTO = 'pronto',
-    FINALIZADO = 'finalizado',
-}
-
-export interface Combo {
-    [ECategory.LANCHE]?: ProductDTO;
-    [ECategory.ACOMPANHAMENTO]?: ProductDTO;
-    [ECategory.BEBIDA]?: ProductDTO;
-    [ECategory.SOBREMESA]?: ProductDTO;
-}
+import { Combo, OrderStatus, PaymentStatus } from "../../../entities/order";
 
 export interface OrderDTO {
     customerId?: string;
     combo: Combo;
+    total: number;
     status: OrderStatus;
+    paymentStatus: PaymentStatus;
     createdAt: Date;
     updatedAt: Date;
 }

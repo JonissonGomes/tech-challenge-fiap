@@ -23,7 +23,7 @@ class CustomerRepository implements ICustomerRepository {
 
     async getCustomerByCPF(cpf: string): Promise<CustomerEntity | null> {
         const customer = await Customer.findOne({ cpf });
-        return customer ? customer.toObject() : null;
+        return customer ? new CustomerEntity(customer.toObject()) : null;
     }
 
     async updateCustomer(id: string, customer: Omit<Partial<CustomerDTO>, 'id'>): Promise<CustomerEntity | null> {

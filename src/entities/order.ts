@@ -17,6 +17,12 @@ export enum OrderStatus {
     FINALIZADO = 'finalizado',
 }
 
+export enum PaymentStatus {
+    PENDENTE = 'pendente',
+    PAGO = 'pago',
+    CANCELADO = 'cancelado',
+}
+
 export enum ECategory {
     LANCHE = 'lanche',
     ACOMPANHAMENTO = 'acompanhamento',
@@ -34,8 +40,10 @@ export interface Combo {
 interface OrderData {
     _id?: string;
     combo: Combo;
+    total: number;
     customer?: ICustomer;
     status: OrderStatus;
+    paymentStatus: PaymentStatus;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -44,16 +52,20 @@ interface OrderData {
 export class Order {
     readonly #_id;
     readonly #combo;
+    readonly #total;
     readonly #status;
+    readonly #paymentStatus;
     readonly #customer;
     readonly #createdAt;
     readonly #updatedAt;
 
     
-    constructor({ combo, status, _id, customer, createdAt, updatedAt }:OrderData) {
+    constructor({ combo, status, _id, customer, total, createdAt, updatedAt, paymentStatus }: OrderData) {
         this.#_id = _id
         this.#combo = combo;
+        this.#total = total;
         this.#status = status;
+        this.#paymentStatus = paymentStatus;
         this.#customer = customer;
         this.#createdAt = createdAt;
         this.#updatedAt = updatedAt;
@@ -65,19 +77,25 @@ export class Order {
         return this.#combo
     }
 
+    get total(): number {
+        return this.#total
+    }
+
     get status(): OrderStatus {
         return this.#status
+    }
+
+    get paymentStatus(): PaymentStatus {
+        return this.#paymentStatus;
     }
     
     get customer(): ICustomer | undefined {
         return this.#customer
     }
 
-       
     get createdAt(): Date {
         return this.#createdAt
     }
-
        
     get updatedAt(): Date {
         return this.#updatedAt

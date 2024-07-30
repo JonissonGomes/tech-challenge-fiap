@@ -11,6 +11,7 @@ import swaggerOutput from "./config/swagger_output.json"
 import customerRoutes from './api/customerRoutes';
 import productRoutes from './api/productRoutes';
 import orderRoutes from './api/orderRoutes';
+import mercadoPagoRoutes from './api/mercadoPagoRoutes';
 
 const app = express();
 const port = 3000;
@@ -27,6 +28,7 @@ app.get('/', (_req: any, res: any) => {
 app.use('/customers', customerRoutes);
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+app.use('/mercadoPago', mercadoPagoRoutes);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
