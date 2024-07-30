@@ -5,8 +5,8 @@ import IOrderRepository from "../../../repositories/interfaces/IOrderRepository"
 export default class HandleMercadoPagoWebhook {
     constructor(private orderRepository: IOrderRepository, private mercadoPagoRepository: IMercadoPagoRepository) { }
 
-    async execute(orderId: string): Promise<void> {
-        const paymentDetails = await this.fetchPaymentDetails(orderId);
+    async execute(mercadoPagoBody: any): Promise<void> {
+        const paymentDetails = await this.fetchPaymentDetails(mercadoPagoBody.data.id);
         await this.updateOrderStatus(paymentDetails);
 
     }

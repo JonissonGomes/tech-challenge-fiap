@@ -60,6 +60,11 @@ export class OrderController {
         return order;
     }
 
+    async editOrderStatus({ id, orderStatus, paymentStatus }: { id: string, orderStatus: OrderStatus, paymentStatus: PaymentStatus }) {
+        const order = await this.editOrderUseCase.executeStatus(id, orderStatus, paymentStatus);
+        return order;
+    }
+
     async createOrderPaymentQRCode({ orderId }: { orderId: string }) {
         const order = await this.createOrderQRCodeUseCase.execute({ orderId });
         return order;

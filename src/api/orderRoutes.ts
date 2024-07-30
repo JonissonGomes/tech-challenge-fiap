@@ -82,4 +82,15 @@ router.put('/:id', async (req: Request, res: Response) => {
     }
 });
 
+router.put('/:id/status', async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const { orderStatus, paymentStatus } = req.body;
+        const order = await new OrderController(orderRepository, mercadoPagoRepository).editOrderStatus({ id, orderStatus, paymentStatus });
+        res.json(order);
+    } catch (error: any) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
 export default router;

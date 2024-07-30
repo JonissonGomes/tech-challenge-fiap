@@ -1,6 +1,6 @@
 import mongoose, { Model } from 'mongoose';
-import { OrderStatus } from '../../domain/useCases/Order/OrderDTO';
 import { IOrder } from '../IOrder';
+import { OrderStatus } from '../../entities/order';
 
 interface OrderDocument extends Omit<IOrder, '_id'>, Document { }
 

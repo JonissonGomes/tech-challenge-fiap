@@ -12,7 +12,9 @@ class MercadoPagoRepository implements IMercadoPagoRepository {
         try {
             const response = await mercadoPagoAxiosInstance.post(
                 '/instore/orders/qr/seller/collectors/178195313/pos/CAIXAFIAPTECHCHALLENGE/qrs',
-                mercadoPagoOrder
+                process.env.NOTIFICATION_URL
+                    ? { ...mercadoPagoOrder, notification_url: process.env.NOTIFICATION_URL }
+                    : mercadoPagoOrder
             );
 
             return {
