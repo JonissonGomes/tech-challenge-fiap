@@ -12,6 +12,7 @@
   - [Customers](#customers)
   - [Products](#products)
   - [Orders](#orders)
+- [Running Stress Tests](#running-stress-tests)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -25,6 +26,7 @@ Tech Challenge FIAP is a self-service system for a fast-food restaurant, designe
 - Endpoint to get products by category.
 - Endpoint to list orders.
 - Endpoint to perform a fake checkout.
+- Scalability demonstrated using Kubernetes HPA and k6 for stress testing.
 
 ## Technologies
 - **Node.js**: JavaScript runtime.
@@ -32,12 +34,15 @@ Tech Challenge FIAP is a self-service system for a fast-food restaurant, designe
 - **MongoDB**: NoSQL database.
 - **Docker**: Containerization platform.
 - **Mongoose**: ODM for MongoDB.
+- **Kubernetes**: Container orchestration.
+- **k6**: Load testing tool.
 
 ## Getting Started
 
 ### Prerequisites
 - Docker
 - Docker Compose
+- Minikube (for Kubernetes)
 
 ### Installation
 1. Clone the repository:
@@ -53,7 +58,34 @@ Tech Challenge FIAP is a self-service system for a fast-food restaurant, designe
 1. Build and start the Docker containers:
    ```bash
    docker-compose up --build
-2. The application will be running at http://localhost:3000.
+2. Verify the application is running:
+   ```bash
+   docker-compose logs -f
+3. Start Minikube:
+   ```bash
+   minikube start --driver=docker
+4. Set kubectl context to Minikube:
+   ```bash
+   kubectl config use-context minikube
+5. Apply Kubernetes manifests:
+   ```bash
+   kubectl apply -f .k8s/metrics.yaml
+   kubectl apply -f .k8s/node-app-database.yaml
+   kubectl apply -f .k8s/node-app.yaml
+   kubectl apply -f .k8s/node-app-hpa.yaml
+6. Verify the Kubernetes resources are running:
+   ```bash
+   kubectl get pods
+
+### Running Stress Tests
+1. Ensure you have the stress-test.js file.
+2. Run the stress test:
+   ```bash
+   k6 run stress-test.js
+3. Monitor HPA and pods:
+   ```bash
+   kubectl get hpa -w
+   kubectl get pods -w
 
 ## API Endpoints
 
