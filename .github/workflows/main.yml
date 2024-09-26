@@ -1,0 +1,28 @@
+name: Deploy Application
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: |
+          docker build -t tech-challenger:latest .
+
+      - name: Push Docker image
+        run: |
+          docker push tech-challenger:latest
+
+      - name: Run Docker container
+        run: |
+          docker run -d -p 3000:3000 tech-challenger:latest
