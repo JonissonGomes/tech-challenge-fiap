@@ -10,6 +10,8 @@ services:
     environment:
       NODE_ENV: development
       MONGO_URI: mongodb://admin:admin@mongo:27017/techchallenge?authSource=admin
+      DOCKER_USERNAME: ${DOCKER_USERNAME}
+      DOCKER_PASSWORD: ${DOCKER_PASSWORD}
     volumes:
       - .:/app
       - /app/node_modules
@@ -28,6 +30,14 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: admin
     volumes:
       - mongo-data:/data/db
+
+  k6:
+    image: loadimpact/k6
+    volumes:
+      - ./stress-test.js:/scripts/stress-test.js
+    command: run /scripts/stress-test.js
+    depends_on:
+      - app
 
 volumes:
   mongo-data:
