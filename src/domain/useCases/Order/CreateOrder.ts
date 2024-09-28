@@ -21,23 +21,15 @@ class CreateOrder {
 
         const createdAt = new Date();
         const updatedAt = createdAt;
-
-        // Calculate total price
-        const total = Object.values(orderData.combo).reduce((sum, item) => {
-            return sum + (item?.price || 0);
-        }, 0);
-
-        const order: OrderDTO = {
+        
+        const createdOrder = await this.orderRepository.createOrder(new Order({
             ...orderData,
-            total,
             status: OrderStatus.RECEBIDO,
             paymentStatus: PaymentStatus.PENDENTE,
             createdAt,
             updatedAt
-        };
-
-        const createdOrder = await this.orderRepository.createOrder(order);
-        return new Order(createdOrder)
+        }));
+        return createdOrder;
     }
 }
 

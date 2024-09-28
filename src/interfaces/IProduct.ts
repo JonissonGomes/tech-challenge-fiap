@@ -6,7 +6,7 @@ export interface IProduct {
   category: ECategory;
   description?: string;
   price: number;
-  isDeleted: boolean;
+  isEnabled: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -7,7 +7,7 @@ export interface ProductDTO {
     description?: string;
     createdAt: Date;
     updatedAt: Date;
-    isDeleted: boolean;
+    isEnabled: boolean;
 }
 
 export enum OrderStatus {
@@ -40,7 +40,7 @@ export interface Combo {
 interface OrderData {
     _id?: string;
     combo: Combo;
-    total: number;
+    total?: number;
     customer?: ICustomer;
     status: OrderStatus;
     paymentStatus: PaymentStatus;
@@ -60,10 +60,10 @@ export class Order {
     readonly #updatedAt;
 
     
-    constructor({ combo, status, _id, customer, total, createdAt, updatedAt, paymentStatus }: OrderData) {
+    constructor({ combo, status, _id, customer, createdAt, updatedAt, paymentStatus }: OrderData) {
         this.#_id = _id
         this.#combo = combo;
-        this.#total = total;
+        this.#total = this.calculateTotal();
         this.#status = status;
         this.#paymentStatus = paymentStatus;
         this.#customer = customer;
@@ -99,5 +99,12 @@ export class Order {
        
     get updatedAt(): Date {
         return this.#updatedAt
+    }
+
+    calculateTotal(): number {
+        const total = Object.values(this.combo).reduce((sum, item) => {
+            return sum + (item?.price || 0);
+        }, 0);
+        return total;
     }
 }
