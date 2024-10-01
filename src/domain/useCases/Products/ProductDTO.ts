@@ -12,5 +12,5 @@ export interface ProductDTO {
     description?: string;
     createdAt: Date;
     updatedAt: Date;
-    isDeleted: boolean;
+    isEnabled: boolean;
 }

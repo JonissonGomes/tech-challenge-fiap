@@ -8,7 +8,7 @@ const ProductSchema = new mongoose.Schema({
     category: { type: String, required: true },
     description: { type: String },
     price: { type: Number, required: true },
-    isDelete: { type: Boolean, required: true, default: false },
+    isEnabled: { type: Boolean, required: true, default: true },
     createdAt: { type: Date, required: true, default: Date.now() },
     updatedAt: { type: Date, required: true, default: Date.now() },
 });
