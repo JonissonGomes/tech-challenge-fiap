@@ -107,4 +107,13 @@ export class Order {
         }, 0);
         return total;
     }
+
+    mapPaymentStatusToOrderStatus(paymentStatus: string): { paymentOrderStatus: PaymentStatus, orderStatus: OrderStatus } | "UNKNOWN" {
+        switch (paymentStatus) {
+            case 'approved': return ({ paymentOrderStatus: PaymentStatus.PAGO, orderStatus: OrderStatus.PREPARANDO });
+            case 'pending': return ({ paymentOrderStatus: PaymentStatus.PENDENTE, orderStatus: OrderStatus.RECEBIDO });
+            case 'rejected': return ({ paymentOrderStatus: PaymentStatus.CANCELADO, orderStatus: OrderStatus.FINALIZADO });
+            default: return 'UNKNOWN';
+        }
+    }
 }

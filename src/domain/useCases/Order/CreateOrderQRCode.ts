@@ -1,5 +1,5 @@
 import { OrderStatus, PaymentStatus } from "../../../entities/order";
-import { IMercadoPagoRepository } from "../../../repositories/interfaces/IMercadoPagoRepository";
+import { IExternalPaymentRepository } from "../../../repositories/interfaces/IExternalPaymentRepository";
 import IOrderRepository from "../../../repositories/interfaces/IOrderRepository";
 
 interface ICreateOrderQRCode {
@@ -7,7 +7,7 @@ interface ICreateOrderQRCode {
 }
 
 class CreateOrderQRCode {
-    constructor(private orderRepository: IOrderRepository, private mercadoPagoRepository: IMercadoPagoRepository) { }
+    constructor(private orderRepository: IOrderRepository, private externalPaymentRepository: IExternalPaymentRepository) { }
 
     async execute({ orderId }: ICreateOrderQRCode): Promise<string> {
         const order = await this.orderRepository.getOrderById(orderId);
@@ -43,9 +43,9 @@ class CreateOrderQRCode {
             external_reference: orderId
         };
 
-        const response = await this.mercadoPagoRepository.createOrder(orderId, qrCodeDetails)
+        const response = await this.externalPaymentRepository.createOrder(orderId, qrCodeDetails)
 
-        await this.mercadoPagoRepository.assignQRCode(qrCodeDetails);
+        await this.externalPaymentRepository.assignQRCode(qrCodeDetails);
 
         return response.qr_data;
     }

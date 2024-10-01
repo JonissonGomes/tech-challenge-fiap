@@ -1,9 +1,9 @@
 import mercadoPagoAxiosInstance from "../config/mercado-pago";
-import { IMercadoPagoOrder, IMercadoPagoRepository, MercadoPagoOrderDTO } from "./interfaces/IMercadoPagoRepository";
+import { IExternalPaymentOrder, IExternalPaymentRepository, ExternalPaymentOrderDTO } from "./interfaces/IExternalPaymentRepository";
 
-class MercadoPagoRepository implements IMercadoPagoRepository {
-    async createOrder(orderId: string, mercadoPagoOrder: MercadoPagoOrderDTO): Promise<IMercadoPagoOrder> {
-        if (!orderId || orderId !== mercadoPagoOrder.external_reference) {
+class MercadoPagoRepository implements IExternalPaymentRepository {
+    async createOrder(orderId: string, externalPaymentOrder: ExternalPaymentOrderDTO): Promise<IExternalPaymentOrder> {
+        if (!orderId || orderId !== externalPaymentOrder.external_reference) {
             throw new Error('OrderId is required or do not match external reference');
         }
 
@@ -13,8 +13,8 @@ class MercadoPagoRepository implements IMercadoPagoRepository {
             const response = await mercadoPagoAxiosInstance.post(
                 '/instore/orders/qr/seller/collectors/178195313/pos/CAIXAFIAPTECHCHALLENGE/qrs',
                 process.env.NOTIFICATION_URL
-                    ? { ...mercadoPagoOrder, notification_url: process.env.NOTIFICATION_URL }
-                    : mercadoPagoOrder
+                    ? { ...externalPaymentOrder, notification_url: process.env.NOTIFICATION_URL }
+                    : externalPaymentOrder
             );
 
             return {
@@ -27,7 +27,7 @@ class MercadoPagoRepository implements IMercadoPagoRepository {
         }
     }
 
-    async assignQRCode(qrCodeDetails: MercadoPagoOrderDTO): Promise<void> {
+    async assignQRCode(qrCodeDetails: ExternalPaymentOrderDTO): Promise<void> {
         try {
             const response = await mercadoPagoAxiosInstance.put(
                 '/instore/orders/qr/seller/collectors/178195313/pos/CAIXAFIAPTECHCHALLENGE/qrs',
