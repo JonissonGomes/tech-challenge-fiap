@@ -5,7 +5,7 @@ import EditOrder from '../../domain/useCases/Order/EditOrder';
 import IOrderRepository from '../../repositories/interfaces/IOrderRepository';
 
 import { Combo, OrderStatus, PaymentStatus } from '../../entities/order';
-import { IMercadoPagoRepository } from '../../repositories/interfaces/IMercadoPagoRepository';
+import { IExternalPaymentRepository } from '../../repositories/interfaces/IExternalPaymentRepository';
 
 export class OrderController {
     readonly createOrderUseCase: CreateOrder
@@ -13,11 +13,11 @@ export class OrderController {
     readonly viewOrderUseCases:ViewOrder
     readonly editOrderUseCase:EditOrder
 
-    constructor(orderRepository: IOrderRepository, mercadoPagoRepository: IMercadoPagoRepository) {
+    constructor(orderRepository: IOrderRepository, externalPaymentRepository: IExternalPaymentRepository) {
         this.createOrderUseCase = new CreateOrder(orderRepository as IOrderRepository);
         this.viewOrderUseCases = new ViewOrder(orderRepository as IOrderRepository);
         this.editOrderUseCase = new EditOrder(orderRepository as IOrderRepository);
-        this.createOrderQRCodeUseCase = new CreateOrderQRCode(orderRepository as IOrderRepository, mercadoPagoRepository as IMercadoPagoRepository);
+        this.createOrderQRCodeUseCase = new CreateOrderQRCode(orderRepository as IOrderRepository, externalPaymentRepository as IExternalPaymentRepository);
     }
     
     async createOrder({ customerId, combo }: {customerId: string, combo: Combo}) {
